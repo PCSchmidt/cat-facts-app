@@ -1,0 +1,3 @@
+C:/Users/pchri/Documents/LearningStuff/CppProjects/cpp-quote-app/build/CMakeFiles/quote_app.dir
+C:/Users/pchri/Documents/LearningStuff/CppProjects/cpp-quote-app/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/pchri/Documents/LearningStuff/CppProjects/cpp-quote-app/build/CMakeFiles/ZERO_CHECK.dir
