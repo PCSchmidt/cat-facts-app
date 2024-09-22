@@ -19,12 +19,12 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y libcpprest-dev
+        sudo apt-get install -y libcpprest-dev libboost-all-dev libasio-dev  # Install necessary dependencies
         git clone https://github.com/CrowCpp/Crow.git
         cd Crow
         mkdir build
         cd build
-        cmake ..
+        cmake .. 
         make
         sudo make install
 
