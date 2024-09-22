@@ -21,8 +21,10 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y libcpprest-dev
 
-    - name: Remove existing CMakeCache.txt
-      run: rm -f build/CMakeCache.txt
+    - name: Clean build directory
+      run: |
+        rm -rf ${{github.workspace}}/build
+        mkdir -p ${{github.workspace}}/build
 
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -S ${{github.workspace}} -DCMAKE_BUILD_TYPE=Release
@@ -33,7 +35,14 @@ jobs:
     - name: Create GitHub Pages content
       run: |
         mkdir -p public
-        cp ${{github.workspace}}/build/quote_app public/
+        if [ -f "${{github.workspace}}/build/quote_app" ]; then
+          cp ${{github.workspace}}/build/quote_app public/
+        elif [ -f "${{github.workspace}}/build/Release/quote_app" ]; then
+          cp ${{github.workspace}}/build/Release/quote_app public/
+        else
+          echo "Error: quote_app executable not found"
+          exit 1
+        fi
         echo '<!DOCTYPE html><html><head><title>C++ Quote App</title></head><body><h1>C++ Quote App</h1><p>Download the executable: <a href="quote_app">quote_app</a></p></body></html>' > public/index.html
 
     - name: Deploy to GitHub Pages
