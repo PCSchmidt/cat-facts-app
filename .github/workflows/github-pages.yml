@@ -36,6 +36,9 @@ jobs:
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -S ${{github.workspace}} -DCMAKE_BUILD_TYPE=Release
 
+    - name: Configure CMake with vcpkg
+      run: cmake -B ${{github.workspace}}/build -S ${{github.workspace}} -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake
+    
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config Release
 
@@ -57,3 +60,8 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./public
+
+    - name: Set up vcpkg
+      run: |
+        git clone https://github.com/microsoft/vcpkg.git
+        ./vcpkg/bootstrap-vcpkg.sh
