@@ -1,0 +1,30 @@
+# Ignore vcpkg directory
+/vcpkg/
+
+# Ignore build directory
+/build/
+
+# Ignore Visual Studio files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Ignore Visual Studio Code files
+.vscode/
+
+# Ignore CMake build files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+
+# Ignore compiled binaries
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Ignore other common files
+*.log
+*.tmp
+*.temp

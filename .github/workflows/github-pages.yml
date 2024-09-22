@@ -1,0 +1,40 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Set this to your default branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: false  # Don't checkout submodules
+
+    - name: Setup CMake
+      uses: jwlawson/actions-setup-cmake@v1.13
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libcpprest-dev
+
+    - name: Configure CMake
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Release
+
+    - name: Build
+      run: cmake --build ${{github.workspace}}/build --config Release
+
+    - name: Create GitHub Pages content
+      run: |
+        mkdir -p public
+        cp ${{github.workspace}}/build/quote_app public/
+        echo '<!DOCTYPE html><html><head><title>C++ Quote App</title></head><body><h1>C++ Quote App</h1><p>Download the executable: <a href="quote_app">quote_app</a></p></body></html>' > public/index.html
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
