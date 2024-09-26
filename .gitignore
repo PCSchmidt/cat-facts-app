@@ -28,3 +28,5 @@ cmake_install.cmake
 *.log
 *.tmp
 *.temp
+
+# cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=C:/Users/pchri/vcpkg/scripts/buildsystems/vcpkg.cmake
